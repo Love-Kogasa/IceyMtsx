@@ -1,0 +1,150 @@
+{
+    // LICENCE(MIT)
+    // Copyright © 2025 @Love-Kogasa
+    // Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files (the “Software”), to deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is furnished to do so, subject to the following conditions:
+    // The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
+    // THE SOFTWARE IS PROVIDED “AS IS”, WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+    name: ["Icey JavaScript", ".js", ".ejs", ".jsm", ".es", ".esm"]
+    comment: {startsWith: "//"}
+    comment: {startsWith: "/*", endsWith: "*/"}
+    styles: [
+      "function", #0022FF, #5AC3FF, @B
+      "string", #00A680, #00DBA9
+      "object-1", #005CDD, #006DFF
+      "object-2", #00A6FF, #00A6FF
+      "object-3", #00CBDE, #00EAFF
+      "this", #0033B3#DDEEFF, #88B3F3#002253, @BI
+      "className", #006287, #CCFFEE, @B
+      "require", #2F7078$DDEEFF, #51ECFF$223344, @BI
+      "delete", @S
+      "ekeyword", #FF0044, #F00, @BI
+      "yes", #00C700, #0F0, @BI
+      "keyword" > "keyword", @BI
+      "default" > "operator"
+      "label" > "label", @B
+      "arrayConcat", @U
+      "meta", #00913F, #00CF5A, @I
+      "strEscape", @IB
+      "private", #668698, #9CCCE7
+    ]
+    defines: [
+        "single-quoted-string": {
+            style: "string"
+            start: {match: /'/}
+            end: {match: /(?m)'|$/}
+            contains: [
+                {match: /\$\d+/, 0: "arrayConcat"}
+                {match: /\\\n/, 0: "strEscape"}
+                {builtin: #JAVA_ESCAPED_CHAR#}
+            ]
+        }
+        "double-quoted-string": {
+            style: "string"
+            start: {match: /"/}
+            end: {match: /(?m)"|$/}
+            contains: [
+                {match: /\$\d+/, 0: "arrayConcat"}
+                {match: /\\\n/, 0: "strEscape"}
+                {builtin: #JAVA_ESCAPED_CHAR#}
+            ]
+        }
+        "backtick-string": {
+            style: "string"
+            start: {match: /`/}
+            end: {match: /`/}
+            contains: [
+                {match: /\\`/, 0: "strEscape"}
+                {builtin: #JAVA_ESCAPED_CHAR#}
+                {include: "dollarExp"}
+            ]
+        }
+        "regex": {
+            start: {match: /(?<=(?:[=,(&|!:;]|^|\breturn)\s{0,20})/ + "/"}
+            end: {match: "/" + /([img]*)/, 1: "operator"}
+            style: "meta"
+            contains: [
+                {match: /\\./, 0: "strEscape"}
+                {
+                    start: {match: /\[/}
+                    end: {match: /\]/}
+                    contains: [
+                        {match: /\\./, 0: "strEscape"}
+                    ]
+                }
+            ]
+        }
+        "dollarExp": {
+            start: {match: /\$\{/}
+            end: {match: /\}/}
+            style: "default"
+            contains: [
+                {include: "backtick-string"}
+                {include: "require"}
+                {include: "ekeywords"}
+                {include: "keywords"}
+                {include: "delete"}
+                {include: "concat"}
+                {include: "class"}
+                {include: "functions"}
+                {include: "this"}
+                {include: "label"}
+                {include: "object3"}
+                {include: "object2"}
+                {include: "object1"}
+                {include: "single-quoted-string"}
+                {include: "double-quoted-string"}
+                {include: "regex"}
+                {include: "backtick-string"}
+                {builtin: #JAVA_NUMBER#}
+            ]
+        }
+        "functions": {match: /[a-zA-Z1-9_$]+(?=\()/, 0: "function"}
+        "object1": {match: /([a-zA-Z1-9_$]+)(\s*(\.|\[)\s*)/, 1: "object-1"}
+        "object2": {match: /([a-zA-Z1-9_$]+)(\s*\.\s*)([a-zA-Z1-9_$]+)(\s*(\.|\[)\s*)/, 1: "object-1", 3: "object-2"}
+        "object3": {match: /([a-zA-Z1-9_$]+)(\s*\.\s*)([a-zA-Z1-9_$]+)(\s*\.\s*)([a-zA-Z1-9_$]+)(\s*(\.|\])\s*)/, 1: "object-1", 3: "object-2", 5: "object-3"}
+        "label": {match: /([a-zA-Z1-9_$]+)(\s*\:\s*)/, 1: "label"}
+        "this": {match: /(this|global|window|globalThis)[^\,\)\}\]\s]*/, 0: "this"}
+        "class": {match: /\b[A-Z][a-zA-Z1-9_$]*/, 0: "className"}
+        "delete": {match: /(delete|void)([^\)\}\]\n\?\|]*)/, 0: "delete", 1: "ekeyword"}
+        "concat": {match: /\.\.\.[a-zA-Z1-9_$]+/, 0: "arrayConcat"}
+        "private": {match: /(_|\#)[a-zA-Z1-9_$]+/, 0: "private"}
+        "keywords": {match: keywordsToRegex(
+                "break case class const continue debugger do else enum extends finally for function if implements import instanceof interface let new package private protected public return static super switch with typeof var while yield function async of await"
+            ), 0: "keyword"
+        }
+        "ekeywords": {match: keywordsToRegex(
+                "try catch throw false undefined NaN null"
+            ), 0: "ekeyword"
+        }
+        "require": {match: keywordsToRegex(
+                "import export require default module.exports as from"
+            ), 0: "require"
+        }
+        "true": {match: keywordsToRegex(
+                "true"
+            ), 0: "yes"
+        }
+    ]
+    contains: [
+        {include: "require"}
+        {include: "ekeywords"}
+        {include: "true"}
+        {include: "keywords"}
+        {include: "delete"}
+        {include: "private"}
+        {include: "concat"}
+        {include: "class"}
+        {include: "functions"}
+        {include: "this"}
+        {include: "label"}
+        {include: "object3"}
+        {include: "object2"}
+        {include: "object1"}
+        {include: "single-quoted-string"}
+        {include: "double-quoted-string"}
+        {include: "regex"}
+        {include: "backtick-string"}
+        {builtin: #JAVA_NUMBER#}
+    ]
+    codeFormatter: #BUILT_IN_JS_FORMATTER#
+}
