@@ -19,7 +19,7 @@
       "delete", @S
       "ekeyword", #FF0044, #F00, @BI
       "yes", #00C700, #0F0, @BI
-      "keyword" > "keyword", @BI
+      "keyword", #0033B3, #003FDE, @BI
       "default" > "operator"
       "label" > "label", @B
       "arrayConcat", @U
