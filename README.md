@@ -6,5 +6,8 @@ Night那个太石了，更不下去了，配色也不好看，作为冷色系爱
 ### JavaScript
 ![示例图](https://postimage.me/images/2025/03/24/Screenshot_2025-03-24-19-53-22-411_bin.mt.plus-edit.jpg)
 ![夜间](https://postimage.me/images/2025/03/24/Screenshot_2025-03-24-19-55-09-996_bin.mt.plus-edit.jpg)
+### JSON(5) - Mini
+![预览图](https://postimage.me/images/2025/03/25/Screenshot_2025-03-25-19-46-48-852_bin.mt.plus-edit.jpg)
 # 目前支持的语言
 * JavaScript (Es6+ Support)
+* JSON(5) Mini
