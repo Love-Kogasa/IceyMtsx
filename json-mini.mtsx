@@ -1,0 +1,23 @@
+{
+    name: ["Icey JSON Mini", ".json", ".json5"]
+    comment: {startsWith: "//"}
+    comment: {startsWith: "/*", endsWith: "*/"}
+    styles: [
+      "string", #00A680, #00DBA9, @I
+      "ekeyword", #FF0044, #F00, @BI
+      "yes", #00C700, #0F0, @BI
+      "default" > "operator"
+      "label" > "label", @B
+      "comment", #CCCCDD$225577, #CCCCDD$002255
+    ]
+    contains: [
+        {match: /(\".*?\"\s*)(\:)/, 1: "label"}
+        {match: /(\".*?\"\s*)/, 0: "string"}
+        {match: /([a-zA-Z0-9]+?\s*)(\:)/, 1: "label"}
+        {match: /(\'.*?\'\s*)(\:)/, 1: "label"}
+        {match: /(\'.*?\'\s*)/, 0: "string"}
+        {builtin: #JAVA_NUMBER#}
+        {match: keywordsToRegex("false null NaN"), 0: "ekeyword"}
+        {match: keywordsToRegex("true infinity"), 0: "yes"}
+    ]
+}

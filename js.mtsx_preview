@@ -1,0 +1,20 @@
+import * as object from "module"
+// 本Js仅供测试高亮效果，无法被执行
+object.fuckthink.events.load = function( e, $contain ){
+  var {Constructor} = {...object}
+  var variable = new Constructor( this.result, 0 )
+  $contain.append( variable )
+  variable.methods.call( global, "\tstring" )
+  label : while( true === true && false == NaN ){
+    if( variable.anyMethod() !== undefined ) break
+    continue label
+  }
+  var __private__ = `Template: ${e.target.getSomething()}`
+    .replace( /(Template)(\:)/, "Tip$2" )
+  console.log( "stdout: (%s)", __private__ )
+  delete variable
+  return void 0
+}
+/** comment */
+export default {}
+
