@@ -26,7 +26,7 @@
       "meta", #00913F, #00CF5A, @I
       "strEscape", @IB
       "private", #668698, #9CCCE7
-      "comment", #CCCCDD$225577, #CCCCDD$002255
+      "comment", #CCCCDD$4477AA, #CCCCDD$002255
     ]
     defines: [
         "single-quoted-string": {
@@ -34,6 +34,7 @@
             start: {match: /'/}
             end: {match: /(?m)'|$/}
             contains: [
+                {match: /\%./, 0: "arrayConcat"}
                 {match: /\$\d+/, 0: "arrayConcat"}
                 {match: /\\\n/, 0: "strEscape"}
                 {builtin: #JAVA_ESCAPED_CHAR#}
@@ -44,6 +45,7 @@
             start: {match: /"/}
             end: {match: /(?m)"|$/}
             contains: [
+                {match: /\%./, 0: "arrayConcat"}
                 {match: /\$\d+/, 0: "arrayConcat"}
                 {match: /\\\n/, 0: "strEscape"}
                 {builtin: #JAVA_ESCAPED_CHAR#}
@@ -109,6 +111,7 @@
         "delete": {match: /(delete|void)([^\)\}\]\n\?\|]*)/, 0: "delete", 1: "ekeyword"}
         "concat": {match: /\.\.\.[a-zA-Z0-9_$]+/, 0: "arrayConcat"}
         "private": {match: /(_|\#)[a-zA-Z0-9_$]+/, 0: "private"}
+        "namespace": {match: /\$[a-zA-Z0-9_$]+/, 0: "label"}
         "labelEmiter": {match: /(continue\s*)([a-zA-Z0-9_\$]+)/, 1: "keyword", 2: "label"}
         "keywords": {match: keywordsToRegex(
                 "break case class const debugger do else enum extends finally for function if implements import instanceof interface let new package private protected public return static super switch with typeof var while yield function async of await"
@@ -133,6 +136,7 @@
         {include: "true"}
         {include: "keywords"}
         {include: "delete"}
+        {include: "namespace"}
         {include: "private"}
         {include: "concat"}
         {include: "class"}
