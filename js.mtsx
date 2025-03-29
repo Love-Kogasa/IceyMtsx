@@ -81,6 +81,7 @@
             end: {match: /\}/}
             style: "default"
             contains: [
+                {builtin: #JAVA_NUMBER#}
                 {include: "backtick-string"}
                 {include: "require"}
                 {include: "ekeywords"}
@@ -98,7 +99,6 @@
                 {include: "double-quoted-string"}
                 {include: "regex"}
                 {include: "backtick-string"}
-                {builtin: #JAVA_NUMBER#}
             ]
         }
         "functions": {match: /[a-zA-Z0-9_$]+(?=\()/, 0: "function"}
@@ -106,7 +106,7 @@
         "object2": {match: /([a-zA-Z0-9_$]+)(\s*\.\s*)([a-zA-Z0-9_$]+)(\s*\?*(\.|\[)\s*)/, 1: "object-1", 3: "object-2"}
         "object3": {match: /([a-zA-Z0-9_$]+)(\s*\.\s*)([a-zA-Z0-9_$]+)(\s*\.\s*)([a-zA-Z0-9_$]+)(\s*\?*(\.|\])\s*)/, 1: "object-1", 3: "object-2", 5: "object-3"}
         "label": {match: /([a-zA-Z0-9_$]+)(\s*\:\s*)/, 1: "label"}
-        "this": {match: /(this|global|window|globalThis)[^\,\)\}\]\s]*/, 0: "this"}
+        "this": {match: /(this|global|window|globalThis)[^\,\)\}\]\s\(]*/, 0: "this"}
         "class": {match: /\b[A-Z][a-zA-Z0-9_$]*/, 0: "className"}
         "delete": {match: /(delete|void)([^\)\}\]\n\?\|]*)/, 0: "delete", 1: "ekeyword"}
         "concat": {match: /\.\.\.[a-zA-Z0-9_$]+/, 0: "arrayConcat"}
@@ -131,6 +131,7 @@
         }
     ]
     contains: [
+        {builtin: #JAVA_NUMBER#}
         {include: "require"}
         {include: "ekeywords"}
         {include: "true"}
@@ -151,7 +152,6 @@
         {include: "double-quoted-string"}
         {include: "regex"}
         {include: "backtick-string"}
-        {builtin: #JAVA_NUMBER#}
     ]
     codeFormatter: #BUILT_IN_JS_FORMATTER#
 }
