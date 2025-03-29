@@ -34,7 +34,7 @@
             start: {match: /'/}
             end: {match: /(?m)'|$/}
             contains: [
-                {match: /\%./, 0: "arrayConcat"}
+                {match: /\%[a-z]/, 0: "arrayConcat"}
                 {match: /\$\d+/, 0: "arrayConcat"}
                 {match: /\\\n/, 0: "strEscape"}
                 {builtin: #JAVA_ESCAPED_CHAR#}
@@ -45,7 +45,7 @@
             start: {match: /"/}
             end: {match: /(?m)"|$/}
             contains: [
-                {match: /\%./, 0: "arrayConcat"}
+                {match: /\%[a-z]/, 0: "arrayConcat"}
                 {match: /\$\d+/, 0: "arrayConcat"}
                 {match: /\\\n/, 0: "strEscape"}
                 {builtin: #JAVA_ESCAPED_CHAR#}
