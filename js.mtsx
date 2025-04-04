@@ -5,8 +5,8 @@
     // The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
     // THE SOFTWARE IS PROVIDED “AS IS”, WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
     name: ["Icey JavaScript", ".js", ".ejs", ".jsm", ".es", ".esm"]
-    comment: {startsWith: "//"}
-    comment: {startsWith: "/*", endsWith: "*/"}
+    //comment: {startsWith: "//"}
+    //comment: {startsWith: "/*", endsWith: "*/"}
     styles: [
       "function", #0022FF, #5AC3FF, @B
       "string", #00A680, #00DBA9
@@ -26,7 +26,8 @@
       "meta", #00913F, #00CF5A, @I
       "strEscape", @IB
       "private", #668698, #9CCCE7
-      "comment", #CCCCDD$4477AA, #CCCCDD$002255
+      "comment", #CCCCDD#225577, #CCCCDD#002255
+      "comment2", #CCCCDD$225577, #CCCCDD$002255
     ]
     defines: [
         "single-quoted-string": {
@@ -95,12 +96,21 @@
                 {include: "object3"}
                 {include: "object2"}
                 {include: "object1"}
+                {include: "comment"}
+                {include: "comment2"}
+                {include: "comment-line"}
+                {include: "comment-line2"}
                 {include: "single-quoted-string"}
                 {include: "double-quoted-string"}
                 {include: "regex"}
                 {include: "backtick-string"}
             ]
         }
+        // 注释系列
+        "comment-line": {match: /(\n\ *)(\/\/.*)/, 2: "comment2"}
+        "comment-line2": {match: /(.\ *)(\/\/.*)/, 2: "comment"}
+        "comment": {match: /\/\*.*?\*\//, 0: "comment"}
+        "comment2": {match: /\/\*(.*?\s*)*\*\//, 0: "comment2"}
         "functions": {match: /[a-zA-Z0-9_$]+(?=\()/, 0: "function"}
         "object1": {match: /([a-zA-Z0-9_$]+)(\s*\?*(\.|\[)\s*)/, 1: "object-1"}
         "object2": {match: /([a-zA-Z0-9_$]+)(\s*\.\s*)([a-zA-Z0-9_$]+)(\s*\?*(\.|\[)\s*)/, 1: "object-1", 3: "object-2"}
@@ -114,7 +124,7 @@
         "namespace": {match: /\$[a-zA-Z0-9_$]+/, 0: "label"}
         "labelEmiter": {match: /(continue\s*)([a-zA-Z0-9_\$]+)/, 1: "keyword", 2: "label"}
         "keywords": {match: keywordsToRegex(
-                "break case class const debugger do else enum extends finally for function in if implements import instanceof interface let new package private protected public return static super switch with typeof var while yield function async of await"
+                "break case class const debugger do else enum extends finally for function if implements import instanceof interface let new package private protected public return static super switch with typeof var while in yield function async of await"
             ), 0: "keyword"
         }
         "ekeywords": {match: keywordsToRegex(
@@ -148,6 +158,10 @@
         {include: "object3"}
         {include: "object2"}
         {include: "object1"}
+        {include: "comment"}
+        {include: "comment2"}
+        {include: "comment-line"}
+        {include: "comment-line2"}
         {include: "single-quoted-string"}
         {include: "double-quoted-string"}
         {include: "regex"}
