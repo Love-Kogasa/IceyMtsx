@@ -124,7 +124,7 @@
         "namespace": {match: /\$[a-zA-Z0-9_$]+/, 0: "label"}
         "labelEmiter": {match: /(continue\s*)([a-zA-Z0-9_\$]+)/, 1: "keyword", 2: "label"}
         "keywords": {match: keywordsToRegex(
-                "break case class const debugger do else enum extends finally for function if implements import instanceof interface let new package private protected public return static super switch with typeof var while in yield function async of await"
+                "break case class const debugger do else enum extends finally for function if implements import instanceof interface let new package private protected public return static super switch with typeof var while in yield function async of await continue"
             ), 0: "keyword"
         }
         "ekeywords": {match: keywordsToRegex(
@@ -145,6 +145,7 @@
         {include: "require"}
         {include: "ekeywords"}
         {include: "true"}
+        {include: "labelEmiter"}
         {include: "keywords"}
         {include: "delete"}
         {include: "namespace"}
@@ -154,7 +155,6 @@
         {include: "functions"}
         {include: "this"}
         {include: "label"}
-        {include: "labelEmiter"}
         {include: "object3"}
         {include: "object2"}
         {include: "object1"}
