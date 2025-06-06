@@ -118,7 +118,7 @@
         "label": {match: /([a-zA-Z0-9_$]+)(\s*\:\s*)/, 1: "label"}
         "this": {match: /(this|global|window|globalThis)[^\,\)\}\]\s\(]*/, 0: "this"}
         "class": {match: /\b[A-Z][a-zA-Z0-9_$]*/, 0: "className"}
-        "delete": {match: /(delete|void)([^\)\}\]\n\?\|]*)/, 0: "delete", 1: "ekeyword"}
+        "delete": {match: /(delete|void)(\ +)([^\)\}\]\n\?\|]*)/, 0: "delete", 1: "ekeyword"}
         "concat": {match: /\.\.\.[a-zA-Z0-9_$]+/, 0: "arrayConcat"}
         "private": {match: /(_|\#)[a-zA-Z0-9_$]+/, 0: "private"}
         "namespace": {match: /\$[a-zA-Z0-9_$]+/, 0: "label"}
